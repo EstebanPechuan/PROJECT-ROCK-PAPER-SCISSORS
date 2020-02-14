@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu&display=swap" rel="stylesheet">
+
+	<meta charset="UTF-8">
+	<title>Rock - Paper - Scissors - GAME</title>
+
+	<style>
+		
+		html, body, h1 {
+			margin: 0;
+			padding: 0;
+		}
+
+		body{
+			width: 100%;
+			height: 100vh;
+			font-family: Ubuntu;
+		}
+
+		.container{
+			background-color: steelblue;
+			width: 100%;
+			height: 100%;
+			text-align: center;
+
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+		}
+
+		h1 {
+			font-size: 40px;
+			margin-bottom: 20px;
+		}
+
+		h2 {
+			font-size: 30px;
+			margin-top: 40px;
+		}
+
+		h3 {
+			font-size: 20px;
+		}
+
+
+	</style>
+
+
+</head>
+<body>
+
+
+	<section class="container">
+		<h1>WELCOME TO <br> ROCK, PAPER AND SCISSOR GAME</h1>
+		<h3>Go to the console and call de "game()" method to play</h3>
+		<h2>HAVE FUN!</h2>
+	</section>
+
+
+
+
+
+	
+	<script>
+
+		//I need these variables like a global variables
+		let contCompPoints = 0
+		let contPlayerPoints = 0
+		
+		function computerPlay(){
+			//Defining elements for the computer selection
+			let elements = ["rock", "paper", "scissor"]
+
+			//Picking a random number to get a computer selection
+			let computerElem = Math.floor(Math.random() * 3)
+
+			return elements[computerElem]
+		}
+
+
+
+		function playRound(comp, player) {
+
+			//If computer win the round
+			if ((comp == "rock") && (player == "scissor")) {
+				contCompPoints = contCompPoints + 1
+				return "You lose! Rock beats Scissor"
+			}
+
+			if ((comp == "scissor") && (player == "paper")) {
+				contCompPoints = contCompPoints + 1
+				return "You lose! Scissor beats Paper"
+			}
+
+			if ((comp == "paper") && (player == "rock")) {
+				contCompPoints = contCompPoints + 1
+				return "You lose! Paper beats Rock"
+			}
+
+
+			//If player win the round
+			if ((player == "rock") && (comp == "scissor")) {
+				contPlayerPoints = contPlayerPoints + 1
+				return "You won! Rock beats Scissor"
+			}
+
+			if ((player == "scissor") && (comp == "paper")) {
+				contPlayerPoints = contPlayerPoints + 1
+				return "You won! Scissor beats Paper"
+			}
+
+			if ((player == "paper") && (comp == "rock")) {
+				contPlayerPoints = contPlayerPoints + 1
+				return "You won! Paper beats Rock"
+			}
+
+
+			//If both players choose the same option
+			if (player == comp) {
+				return "Tie! Repeat the round"
+			}
+		}
+
+
+
+		function game() {
+
+			for (i=1; i<=5; i++) {
+			
+				let computerSelection = computerPlay()
+
+				// console.log(computerSelection)
+
+				let writeSelection = prompt("Chooce an element: Rock, Paper or Scissor")
+				let playerSelection = writeSelection.toLowerCase()
+
+				while ((playerSelection != "rock") && (playerSelection != "paper") && (playerSelection != "scissor")) {
+					console.log("Your selection is not a valid option, please choose another one")
+
+					writeSelection = prompt("Chooce an element: Rock, Paper or Scissor")
+					playerSelection = writeSelection.toLowerCase()
+				}
+
+				// console.log(playerSelection)
+
+				let parcialRound = playRound(computerSelection, playerSelection)
+
+
+
+				//Showing results
+				console.log("Computer choice is: " + computerSelection)
+				console.log("Player choice is: " + playerSelection)
+
+				console.log(parcialRound)
+				
+				//I have to do this (below) because the game is have to be played 5 rounds,
+				//but just in TIE case, the round will not be played again.
+				//So, in that case, there's a possibility to finish the 5 rounds
+				//in a tie. For example..: Computer: 2 -- Player: 2
+				if (parcialRound == "Tie! Repeat the round") {
+					i = i - 1
+				}
+
+				console.log("Player: " + contPlayerPoints)
+				console.log("Computer: " + contCompPoints)
+
+			}
+
+
+			//Finish Result
+			if (contPlayerPoints > contCompPoints) {
+				console.log("Player win: " + contPlayerPoints + " points")
+				console.log("Computer lose: " + contCompPoints + " points")
+			} else {
+				console.log("Computer win: " + contCompPoints + " points")
+				console.log("Player lose: " + contPlayerPoints + " points")
+			}
+
+		}
+
+	</script>
+</body>
+</html>
